@@ -1,4 +1,4 @@
-# Tri Ân 20/11 -- Cổng Lời Chúc Tương Tác
+# Tri Ân 20/11 -- Lời Chúc May Mắn
 
 Ứng dụng web full-stack được xây dựng nhằm kỷ niệm Ngày Nhà Giáo Việt
 Nam 20/11. Người dùng có thể xem lời chúc, quay vòng quay ngẫu nhiên,
