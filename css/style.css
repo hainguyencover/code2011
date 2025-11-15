@@ -1,0 +1,619 @@
+/* 1. Thiết lập Biến & Global */
+:root {
+    --color1: #fceabb;
+    --color2: #fccd94;
+    --color3: #f45d4c; /* Màu nhấn chính */
+    --color4: #ff9a8b;
+    --color5: #ff6b6b;
+    --light: #fffcf5; /* Nền nhẹ nhàng hơn */
+    --dark: #4a2f1d; /* Chữ đậm, dễ đọc hơn */
+    --grey: #f0f0f0;
+    --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.07);
+    --radius-md: 12px;
+    --radius-lg: 16px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--light);
+    color: var(--dark);
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+}
+
+h1, h2, h3 {
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+h1 {
+    font-size: 3.5rem;
+}
+
+h2 {
+    font-size: 2.5rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+}
+
+p {
+    margin-bottom: 1rem;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* 2. Layout Chung */
+section {
+    min-height: 100vh;
+    padding: 0 2rem; /* Thêm nhiều không gian thở */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 100%;
+}
+
+.section-container {
+    width: 100%;
+    max-width: 1100px; /* Giới hạn chiều rộng nội dung */
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* 3. Navigation Dots (Giữ nguyên, chỉ đổi màu) */
+.nav-dots {
+    position: fixed;
+    right: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 100;
+}
+
+.nav-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.1);
+    margin: 10px 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.nav-dot.active {
+    background-color: var(--color3);
+    transform: scale(1.3);
+}
+
+/* 4. Banner Section */
+.banner {
+    background: linear-gradient(135deg, var(--color1), var(--color2));
+    overflow: hidden;
+}
+
+.banner h1 {
+    color: var(--color3);
+    font-weight: 700;
+}
+
+.banner p {
+    font-size: 1.25rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0.8;
+}
+
+.floating-element {
+    position: absolute;
+    opacity: 0.7;
+    z-index: 1;
+}
+
+.flower {
+    width: 50px;
+    height: 50px;
+    background-color: var(--color4);
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(45deg);
+}
+
+.bubble {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--color1);
+    border: 2px solid var(--color3);
+}
+
+/* 5. Storytelling Section */
+.story-section {
+    padding: 0;
+    background-color: #fff; /* Nền trắng cho phần story */
+}
+
+.story-container {
+    width: 100%;
+    max-width: 100%; /* Full-width */
+    height: 100vh;
+    margin: 0 auto;
+    overflow-y: auto;
+    scroll-snap-type: y mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+}
+
+.story-container::-webkit-scrollbar {
+    display: none;
+}
+
+.story-slide {
+    height: 100vh;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    scroll-snap-align: start;
+    padding: 2rem;
+    box-sizing: border-box;
+}
+
+.story-slide .slide-inner {
+    width: 100%;
+    max-width: 1100px; /* Khớp với .section-container */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4rem;
+}
+
+.story-image {
+    flex: 1;
+    max-width: 50%;
+    height: 70vh;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+}
+
+.story-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.story-content {
+    flex: 1;
+    max-width: 50%;
+    text-align: left; /* Chữ canh trái */
+}
+
+.story-title {
+    font-size: 2.2rem;
+    color: var(--color3);
+    margin-bottom: 1.5rem;
+}
+
+.story-text {
+    font-size: 1.1rem;
+    line-height: 1.8; /* Tăng khoảng cách dòng */
+}
+
+/* 6. Spinner Section (Thiết kế lại với Card) */
+.spinner-section {
+    background-color: var(--light); /* Nền nhẹ nhàng */
+    z-index: 5;
+    position: relative;
+}
+
+.spinner-wrapper {
+    background: #ffffff;
+    padding: 3rem;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    max-width: 600px; /* Giới hạn chiều rộng card */
+}
+
+.spinner-wrapper h2 {
+    color: var(--color3);
+    margin-bottom: 0.5rem;
+}
+
+.spinner-wrapper p {
+    font-size: 1.1rem;
+    opacity: 0.7;
+    margin-bottom: 2rem;
+}
+
+.spinner-container {
+    width: 300px;
+    height: 300px;
+    position: relative;
+    margin: 2rem auto;
+}
+
+.spinner-wheel {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+    border: 8px solid white;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    background: conic-gradient(
+            from 0deg,
+            var(--color1) 0deg 30deg,
+            var(--color2) 30deg 60deg,
+            var(--color3) 60deg 90deg,
+            var(--color4) 90deg 120deg,
+            var(--color5) 120deg 150deg,
+            #ff9a8b 150deg 180deg,
+            #ff6b6b 180deg 210deg,
+            #fceabb 210deg 240deg,
+            #fccd94 240deg 270deg,
+            #f45d4c 270deg 300deg,
+            #ff9a8b 300deg 330deg,
+            #ff6b6b 330deg 360deg
+    );
+}
+
+.spinner-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70px;
+    height: 70px;
+    background: white;
+    border-radius: 50%;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.spinner-center:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+.spinner-center i {
+    font-size: 1.8rem;
+    color: var(--color3);
+}
+
+.spinner-result {
+    margin-top: 2rem;
+    text-align: center;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    font-weight: 500;
+    padding: 1rem;
+    background: var(--light);
+    border-radius: var(--radius-md);
+    max-width: 600px;
+    line-height: 1.5;
+}
+
+.spin-btn {
+    background: var(--color3);
+    color: white;
+    border: none;
+    padding: 1rem 2.5rem;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 1.5rem;
+    box-shadow: 0 5px 15px rgba(244, 93, 76, 0.3);
+    transition: all 0.3s ease;
+}
+
+.spin-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(244, 93, 76, 0.4);
+}
+
+/* 7. Card Section (Gửi lời chúc) */
+.card-section {
+    background: linear-gradient(135deg, var(--color1), var(--color2));
+    height: auto; /* Cho phép co giãn */
+}
+
+/* Form lời chúc mới (Thiết kế lại) */
+.new-wish-form {
+    width: 100%;
+    max-width: 500px; /* Tăng độ rộng form */
+    margin: 1.2rem auto;
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    text-align: left;
+}
+
+.new-wish-form h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--color3);
+    text-align: center;
+    font-size: 1.8rem;
+}
+
+.new-wish-form .form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.new-wish-form label {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--dark);
+}
+
+.new-wish-form input,
+.new-wish-form textarea {
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-md);
+    border: 1px solid #ddd;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    resize: vertical;
+    background: var(--light);
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.new-wish-form input:focus,
+.new-wish-form textarea:focus {
+    outline: none;
+    border-color: var(--color3);
+    box-shadow: 0 0 0 3px rgba(244, 93, 76, 0.2);
+}
+
+.new-wish-form .form-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.send-btn {
+    background: linear-gradient(90deg, var(--color4), var(--color3));
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(244, 93, 76, 0.25);
+    transition: all 0.3s ease;
+}
+
+.send-btn:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 10px 25px rgba(244, 93, 76, 0.35);
+}
+
+#newWishSuccess {
+    width: 100%;
+    text-align: center;
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-md);
+    background: #eaf8ee;
+    color: #1b6b2a;
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+/* Nút bật/tắt danh sách lời chúc (Thiết kế lại) */
+.toggle-wishes-btn {
+    background-color: transparent;
+    color: var(--dark);
+    border: 2px solid var(--dark);
+    padding: 0.8rem 1.5rem;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 2rem;
+    transition: all 0.3s ease;
+}
+
+.toggle-wishes-btn:hover {
+    background-color: var(--dark);
+    color: white;
+    transform: translateY(-3px);
+}
+
+/* Danh sách lời chúc đã lưu */
+.saved-wishes {
+    max-width: 1100px; /* Khớp với .section-container */
+    width: 100%;
+    margin: 2rem auto 3rem;
+    padding: 0;
+}
+
+.saved-wishes h3 {
+    text-align: center;
+    color: var(--dark);
+    font-size: 2rem;
+    margin-bottom: 2rem;
+}
+
+#savedWishesList {
+    list-style: none;
+    margin-top: 0.6rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem; /* Tăng khoảng cách */
+    padding: 0;
+}
+
+#savedWishesList li {
+    background: #ffffff;
+    padding: 1.25rem 1.25rem 1.25rem 1.5rem;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    font-size: 1rem;
+    color: var(--dark);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    min-height: 150px; /* Tăng chiều cao tối thiểu */
+    justify-content: space-between;
+    border-left: 5px solid transparent; /* JS sẽ thêm màu */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#savedWishesList li:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+}
+
+#savedWishesList .meta {
+    font-size: 0.85rem;
+    color: var(--dark);
+    opacity: 0.6;
+}
+
+/* 8. Responsive Design */
+
+/* Tablet */
+@media (max-width: 1024px) {
+    h1 {
+        font-size: 3rem;
+    }
+
+    h2 {
+        font-size: 2rem;
+    }
+
+    .story-slide .slide-inner {
+        gap: 2rem;
+    }
+
+    .story-image {
+        height: 60vh;
+    }
+
+    .story-title {
+        font-size: 1.8rem;
+    }
+
+    .story-text {
+        font-size: 1rem;
+    }
+
+    #savedWishesList {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    body {
+        font-size: 15px; /* Tăng nhẹ size mobile */
+    }
+
+    section {
+        padding: 4rem 1.5rem;
+    }
+
+    .nav-dots {
+        display: none; /* Ẩn nav-dots trên mobile */
+    }
+
+    .banner h1 {
+        font-size: 2.5rem;
+    }
+
+    .banner p {
+        font-size: 1.1rem;
+    }
+
+    /* Story Section Mobile */
+    .story-section {
+        height: auto;
+    }
+
+    .story-container {
+        height: auto;
+        scroll-snap-type: none; /* Tắt snap trên mobile */
+    }
+
+    .story-slide {
+        height: auto; /* Cho phép slide co giãn */
+        min-height: auto;
+        padding: 3rem 1rem;
+    }
+
+    .story-slide .slide-inner {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .story-image, .story-content {
+        max-width: 100%;
+    }
+
+    .story-image {
+        height: 40vh;
+    }
+
+    .story-content {
+        height: auto;
+        text-align: center;
+    }
+
+    /* Spinner Mobile */
+    .spinner-wrapper {
+        padding: 2rem;
+    }
+
+    .spinner-container {
+        width: 280px;
+        height: 280px;
+    }
+
+    .spinner-result {
+        font-size: 1.1rem;
+    }
+
+    /* Form & List Mobile */
+    .new-wish-form {
+        padding: 1.5rem;
+    }
+
+    #savedWishesList {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+}
